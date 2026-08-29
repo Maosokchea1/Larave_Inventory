@@ -1,0 +1,51 @@
+{
+    "Home": "Home",
+    "About": "About",
+    "Main Menu": "Main Menu",
+    "Dashboard": "Dashboard",
+
+    "Product Management": "Product Management",
+    "Products": "Products",
+    "Category": "Category",
+    "Brands": "Brands",
+    "Units": "Units",
+
+    "People & Locations": "People & Locations",
+    "Warehouses": "Warehouses",
+    "Suppliers": "Suppliers",
+    "Customers": "Customers",
+
+    "Transactions": "Transactions",
+    "Purchases": "Purchases",
+    "Sales": "Sales",
+    "Expenses": "Expenses",
+
+    "Stock Management": "Stock Management",
+    "Stock In": "Stock In",
+    "Stock Out": "Stock Out",
+    "Stock Adjustments": "Stock Adjustments",
+    "Stock Transfers": "Stock Transfers",
+    "Purchase Returns": "Purchase Returns",
+    "Sales Returns": "Sales Returns",
+    "Low Stock Alerts": "Low Stock Alerts",
+    "Stock History": "Stock History",
+
+    "Reports": "Reports",
+    "Stock Reports": "Stock Reports",
+
+    "Administration": "Administration",
+    "Users": "Users",
+    "Roles": "Roles",
+    "Permissions": "Permissions",
+    "Activity Logs": "Activity Logs",
+    "General Settings": "General Settings",
+
+    "Only :qty :unit available": "Only :qty :unit available",
+    "Apply Adjustment": "Apply Adjustment",
+    "Increase": "Increase",
+    "Decrease": "Decrease",
+
+    "Language": "Language",
+    "English": "English",
+    "Khmer": "Khmer"
+}
