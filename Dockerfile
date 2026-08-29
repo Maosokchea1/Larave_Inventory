@@ -8,7 +8,9 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev \
     zip \
-    unzip
+    unzip \
+    nodejs \
+    npm
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -55,6 +57,9 @@ RUN a2enmod rewrite
 
 # Install project dependencies safely
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
+
+# Install Node modules and build Vite assets
+RUN npm install && npm run build
 
 # Copy entrypoint script and make it executable
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
