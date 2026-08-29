@@ -53,3 +53,10 @@ RUN a2enmod rewrite
 
 # Install project dependencies safely
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
+
+# Copy entrypoint script and make it executable
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Set entrypoint
+ENTRYPOINT ["entrypoint.sh"]
