@@ -27,12 +27,15 @@ WORKDIR /var/www/html
 # Copy existing application directory
 COPY . /var/www/html
 
-# Create storage and bootstrap/cache directories if they don't exist
-RUN mkdir -p /var/www/html/storage /var/www/html/bootstrap/cache
+# Create storage, bootstrap/cache, and database directories if they don't exist
+RUN mkdir -p /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database
 
-# Change ownership and set permissions for storage and bootstrap/cache
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
-    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+# Create the SQLite database file if it doesn't exist
+RUN touch /var/www/html/database/database.sqlite
+
+# Change ownership and set permissions for storage, bootstrap/cache, and database
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database \
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database
 
 # Configure Apache DocumentRoot to point to Laravel's public directory
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
