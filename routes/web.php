@@ -26,7 +26,7 @@ use App\Http\Controllers\ProductSettingController;
 |--------------------------------------------------------------------------
 */
 
-// Redirect Route (/) ទៅកាន់ទំព័រ Login ភ្លាមៗ
+// Root Route (/) បង្វែរទៅកាន់ទំព័រ Login
 Route::get('/', function () {
     return redirect()->route('login');
 });
@@ -100,13 +100,11 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // ==========================================
-// Admin Management Group Routes (Protected by admin middleware)
+// Admin Management Group Routes
 // ==========================================
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
-    // Roles Management
     Route::resource('roles', RoleController::class);
 
-    // Permissions Management
     Route::name('permissions.')->group(function () {
         Route::get('/permissions', [PermissionController::class, 'index'])->name('index');
         Route::get('/permissions/create', [PermissionController::class, 'create'])->name('create');
@@ -115,13 +113,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 });
 
 // ==========================================
-// Users & Connect Admin Routes (Accessible by regular authenticated users)
+// Users & Connect Admin Routes
 // ==========================================
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
-    // Users Management
     Route::resource('users', UserController::class);
-
-    // Connect Admin Route
     Route::resource('connect-admin', ConnectAdminController::class);
 });
 
