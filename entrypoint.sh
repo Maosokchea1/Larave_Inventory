@@ -1,16 +1,14 @@
-#!/bin/bash
+#!/bin/sh
+set -e
 
-# Give full permissions to storage, bootstrap/cache and database directories
-chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database
-chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database
-chmod 664 /var/www/html/database/database.sqlite
-
-# Clear configuration and cache
-php artisan config:clear
-php artisan cache:clear
-
-# Run database migrations automatically
+# Run database migrations automatically on start
 php artisan migrate --force
 
-# Start Apache in the foreground
-apache2-foreground
+# Clear and cache configurations for high performance
+php artisan config:clear
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+
+# Start Apache web server in foreground
+exec apache2-foreground

@@ -57,7 +57,7 @@ RUN a2enmod rewrite
 # Install project dependencies safely
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
-# Install Node modules and build Vite assets
+# Install Node modules and build Vite assets directly on server
 RUN npm install && npm run build
 
 # Copy entrypoint script and make it executable
