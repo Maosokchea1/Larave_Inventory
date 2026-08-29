@@ -28,13 +28,15 @@ WORKDIR /var/www/html
 COPY . /var/www/html
 
 # Create storage, bootstrap/cache and database directories, and the sqlite file
-RUN mkdir -p /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database \
-    && touch /var/www/html/database/database.sqlite
+RUN mkdir -p /var/www/html/storage/logs /var/www/html/storage/framework/sessions /var/www/html/storage/framework/views /var/www/html/storage/framework/cache /var/www/html/bootstrap/cache /var/www/html/database \
+    && touch /var/www/html/database/database.sqlite \
+    && touch /var/www/html/storage/logs/laravel.log
 
-# Change ownership and set permissions for storage, bootstrap/cache and database
+# Change ownership and set permissions for storage and database
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database \
     && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database \
-    && chmod 664 /var/www/html/database/database.sqlite
+    && chmod 664 /var/www/html/database/database.sqlite \
+    && chmod 664 /var/www/html/storage/logs/laravel.log
 
 # Configure Apache DocumentRoot to point to Laravel's public directory
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
