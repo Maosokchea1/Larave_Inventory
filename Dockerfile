@@ -30,8 +30,9 @@ COPY . /var/www/html
 # Create storage and bootstrap/cache directories if they don't exist
 RUN mkdir -p /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Change ownership of our applications
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+# Change ownership and set permissions for storage and bootstrap/cache
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Configure Apache DocumentRoot to point to Laravel's public directory
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
