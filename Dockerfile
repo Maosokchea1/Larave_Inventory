@@ -27,6 +27,9 @@ WORKDIR /var/www/html
 # Copy existing application directory
 COPY . /var/www/html
 
+# Create storage and bootstrap/cache directories if they don't exist
+RUN mkdir -p /var/www/html/storage /var/www/html/bootstrap/cache
+
 # Change ownership of our applications
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
@@ -38,5 +41,5 @@ RUN sed -ri -s 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 # Enable Apache Mod Rewrite
 RUN a2enmod rewrite
 
-# Install project dependencies
-RUN composer install --no-dev --optimize-autoloader
+# Install project dependencies safely
+RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
