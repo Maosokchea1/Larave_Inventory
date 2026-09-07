@@ -8,10 +8,13 @@ return new class extends Migration
 {
     public function up(): void
     {
-        // ដាក់ Email ដែលកំពុង Login លើ Render ផ្ទាល់
-        User::where('email', 'mrrsokchea0@gmail.com')->update([
-            'role' => 'admin'
-        ]);
+        try {
+            User::where('email', 'mrrsokchea0@gmail.com')->update([
+                'role' => 'admin'
+            ]);
+        } catch (\Exception $e) {
+            // ការពារកុំឱ្យ Crash ប្រសិនបើ Table មិនទាន់រួចរាល់
+        }
     }
 
     public function down(): void
