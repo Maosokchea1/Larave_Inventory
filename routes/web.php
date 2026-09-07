@@ -100,7 +100,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // ==========================================
-// Admin Management Group Routes
+// Admin Management Group Routes (Roles & Permissions)
 // ==========================================
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('roles', RoleController::class);
