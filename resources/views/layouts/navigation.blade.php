@@ -117,7 +117,7 @@
                           <form action="{{ route('notifications.read-all') }}" method="POST">
                               @csrf
                               @method('PATCH')
-                              <button type="submit" font-sans class="text-xs text-primary hover:underline cursor-pointer">{{ __('Mark all as read') }}</button>
+                              <button type="submit" class="text-xs text-primary hover:underline cursor-pointer">{{ __('Mark all as read') }}</button>
                           </form>
                         @endif
                     </div>
@@ -208,6 +208,18 @@
                             <p class="truncate text-xs text-slate-500 dark:text-slate-400">
                                 {{ auth()->user()->email }}
                             </p>
+                            <!-- បន្ថែមសិទ្ធិ Role Badge (Admin ឬ User) នៅត្រង់នេះ -->
+                            <div class="mt-1">
+                                @if(auth()->user()->role === 'admin')
+                                    <span class="inline-flex items-center rounded-md bg-rose-50 px-2 py-0.5 text-[10px] font-medium text-rose-700 ring-1 ring-inset ring-rose-600/10 dark:bg-rose-950/30 dark:text-rose-400">
+                                        Admin
+                                    </span>
+                                @else
+                                    <span class="inline-flex items-center rounded-md bg-slate-50 px-2 py-0.5 text-[10px] font-medium text-slate-600 ring-1 ring-inset ring-slate-500/10 dark:bg-slate-800 dark:text-slate-400">
+                                        User
+                                    </span>
+                                @endif
+                            </div>
                         </div>
                         <button
                             type="button"
