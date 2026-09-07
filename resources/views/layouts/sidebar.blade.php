@@ -141,9 +141,6 @@
                 </a>
             </li>
 
-            <!-- Transfer -->
-  
-
             <!-- Stock Reports -->
             <li>
                 <a href="{{ route('stock.reports') }}"
@@ -167,9 +164,6 @@
                 {{ __('Administration') }}
             </li>
 
-            <!-- Users -->
-          
-
             <!-- Connect Admin -->
             <li>
                 <a href="{{ route('admin.connect-admin.index') }}"
@@ -183,12 +177,8 @@
                 </a>
             </li>
 
-            <!-- Admin-only section -->
-            @if(auth()->user() && auth()->user()->role === 'admin')
-
-
-
-              <li>
+            <!-- Users -->
+            <li>
                 <a href="{{ route('admin.users.index') }}"
                     class="{{ request()->routeIs('admin.users.*') ? 'text-primary bg-primary/5 border-l-4 border-primary dark:bg-primary/10 dark:border-primary' : 'text-gray-600 border-l-4 border-transparent hover:border-gray-300 dark:text-gray-300 dark:hover:border-slate-600 dark:hover:bg-slate-800/30' }} flex items-center p-2.5 pl-4 rounded-r-lg transition-all duration-200 group hover:translate-x-0.5">
                     <svg class="w-5 h-5 transition-colors {{ request()->routeIs('admin.users.*') ? 'text-primary' : 'text-gray-400 group-hover:text-primary dark:text-gray-500 dark:group-hover:text-white' }}"
@@ -201,48 +191,50 @@
                 </a>
             </li>
 
-                <!-- Roles -->
-                <li>
-                    <a href="{{ route('admin.roles.index') }}"
-                        class="{{ request()->routeIs('admin.roles.*') ? 'text-primary bg-primary/5 border-l-4 border-primary dark:bg-primary/10 dark:border-primary' : 'text-gray-600 border-l-4 border-transparent hover:border-gray-300 dark:text-gray-300 dark:hover:border-slate-600 dark:hover:bg-slate-800/30' }} flex items-center p-2.5 pl-4 rounded-r-lg transition-all duration-200 group hover:translate-x-0.5">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="w-5 h-5 transition-colors {{ request()->routeIs('admin.roles.*') ? 'text-primary' : 'text-gray-400 group-hover:text-primary dark:text-gray-500 dark:group-hover:text-white' }}">
-                            <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
-                        </svg>
-                        <span class="flex-1 ms-3 text-sm whitespace-nowrap font-sans">{{ __('Roles') }}</span>
-                    </a>
-                </li>
+            <!-- Roles -->
+            <li>
+                <a href="{{ route('admin.roles.index') }}"
+                    class="{{ request()->routeIs('admin.roles.*') ? 'text-primary bg-primary/5 border-l-4 border-primary dark:bg-primary/10 dark:border-primary' : 'text-gray-600 border-l-4 border-transparent hover:border-gray-300 dark:text-gray-300 dark:hover:border-slate-600 dark:hover:bg-slate-800/30' }} flex items-center p-2.5 pl-4 rounded-r-lg transition-all duration-200 group hover:translate-x-0.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="w-5 h-5 transition-colors {{ request()->routeIs('admin.roles.*') ? 'text-primary' : 'text-gray-400 group-hover:text-primary dark:text-gray-500 dark:group-hover:text-white' }}">
+                        <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
+                    </svg>
+                    <span class="flex-1 ms-3 text-sm whitespace-nowrap font-sans">{{ __('Roles') }}</span>
+                </a>
+            </li>
 
-                <!-- Permissions -->
-                <!-- <li>
-                    <a href="{{ route('admin.permissions.index') }}"
-                        class="{{ request()->routeIs('admin.permissions.*') || request()->routeIs('permissions.*') ? 'text-primary bg-primary/5 border-l-4 border-primary dark:bg-primary/10 dark:border-primary' : 'text-gray-600 border-l-4 border-transparent hover:border-gray-300 dark:text-gray-300 dark:hover:border-slate-600 dark:hover:bg-slate-800/30' }} flex items-center p-2.5 pl-4 rounded-r-lg transition-all duration-200 group hover:translate-x-0.5">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="w-5 h-5 transition-colors {{ request()->routeIs('admin.permissions.*') || request()->routeIs('permissions.*') ? 'text-primary' : 'text-gray-400 group-hover:text-primary dark:text-gray-500 dark:group-hover:text-white' }}">
-                            <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
-                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                        </svg>
-                        <span class="flex-1 ms-3 text-sm whitespace-nowrap font-sans">{{ __('Permissions') }}</span>
-                    </a>
-                </li> -->
+            <!-- Permissions (Commented Out) -->
+            <!-- 
+            <li>
+                <a href="{{ route('admin.permissions.index') }}"
+                    class="{{ request()->routeIs('admin.permissions.*') || request()->routeIs('permissions.*') ? 'text-primary bg-primary/5 border-l-4 border-primary dark:bg-primary/10 dark:border-primary' : 'text-gray-600 border-l-4 border-transparent hover:border-gray-300 dark:text-gray-300 dark:hover:border-slate-600 dark:hover:bg-slate-800/30' }} flex items-center p-2.5 pl-4 rounded-r-lg transition-all duration-200 group hover:translate-x-0.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="w-5 h-5 transition-colors {{ request()->routeIs('admin.permissions.*') || request()->routeIs('permissions.*') ? 'text-primary' : 'text-gray-400 group-hover:text-primary dark:text-gray-500 dark:group-hover:text-white' }}">
+                        <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    <span class="flex-1 ms-3 text-sm whitespace-nowrap font-sans">{{ __('Permissions') }}</span>
+                </a>
+            </li> 
+            -->
 
-                <!-- Products Settings -->
-                <!-- <li>
-                    <a href="{{ route('products-settings.index') }}"
-                        class="{{ request()->routeIs('products-settings.*') ? 'text-primary bg-primary/5 border-l-4 border-primary dark:bg-primary/10 dark:border-primary' : 'text-gray-600 border-l-4 border-transparent hover:border-gray-300 dark:text-gray-300 dark:hover:border-slate-600 dark:hover:bg-slate-800/30' }} flex items-center p-2.5 pl-4 rounded-r-lg transition-all duration-200 group hover:translate-x-0.5 font-sans">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="w-5 h-5 transition-colors {{ request()->routeIs('products-settings.*') ? 'text-primary' : 'text-gray-400 group-hover:text-primary dark:text-gray-500 dark:group-hover:text-white' }}">
-                            <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
-                            <circle cx="12" cy="12" r="3"></circle>
-                        </svg>
-                        <span class="flex-1 ms-3 text-sm whitespace-nowrap font-sans">{{ __('Products Settings') }}</span>
-                    </a>
-                </li> -->
-
-            @endif
+            <!-- Products Settings (Commented Out) -->
+            <!-- 
+            <li>
+                <a href="{{ route('products-settings.index') }}"
+                    class="{{ request()->routeIs('products-settings.*') ? 'text-primary bg-primary/5 border-l-4 border-primary dark:bg-primary/10 dark:border-primary' : 'text-gray-600 border-l-4 border-transparent hover:border-gray-300 dark:text-gray-300 dark:hover:border-slate-600 dark:hover:bg-slate-800/30' }} flex items-center p-2.5 pl-4 rounded-r-lg transition-all duration-200 group hover:translate-x-0.5 font-sans">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="w-5 h-5 transition-colors {{ request()->routeIs('products-settings.*') ? 'text-primary' : 'text-gray-400 group-hover:text-primary dark:text-gray-500 dark:group-hover:text-white' }}">
+                        <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    <span class="flex-1 ms-3 text-sm whitespace-nowrap font-sans">{{ __('Products Settings') }}</span>
+                </a>
+            </li> 
+            -->
         </ul>
     </div>
 </aside>
