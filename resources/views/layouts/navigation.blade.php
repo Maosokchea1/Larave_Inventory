@@ -55,6 +55,7 @@
                     x-show="open"
                     x-transition
                     @click.outside="open = false"
+                    style="display: none;"
                     class="absolute right-0 z-50 mt-2 w-40 rounded-xl border border-slate-200 bg-white p-1.5 shadow-lg dark:border-slate-700 dark:bg-slate-800">
 
                     <a href="{{ route('language.switch', 'en') }}"
@@ -94,13 +95,15 @@
                 <button
                     type="button"
                     @click="open = !open"
+                    @keydown.escape.window="open = false"
+                    :aria-expanded="open"
                     class="relative flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700">
                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
                     </svg>
                     
-                    @if(auth()->user()->unreadNotifications->count() > 0)
-                        <span class="absolute top-2 right-2 w-2.5 h-2.5 bg-rose-500 rounded-full ring-2 ring-white dark:ring-slate-900"></span>
+                    @if(auth()->check() && auth()->user()->unreadNotifications->count() > 0)
+                        <span class="absolute top-2 right-2 h-2.5 w-2.5 rounded-full bg-rose-500 ring-2 ring-white dark:ring-slate-900"></span>
                     @endif
                 </button>
 
@@ -110,24 +113,24 @@
                     x-transition
                     @click.outside="open = false"
                     style="display: none;" 
-                    class="absolute right-0 z-50 mt-2 w-80 rounded-xl border border-slate-200 bg-white shadow-xl py-2 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200">
-                    <div class="px-4 py-2 border-b border-slate-100 flex justify-between items-center dark:border-slate-700">
-                        <span class="text-xs font-sans uppercase tracking-wider text-slate-700 dark:text-slate-300">{{ __('Notifications') }}</span>
-                        @if(auth()->user()->unreadNotifications->count() > 0)
+                    class="absolute right-0 z-50 mt-2 w-80 rounded-xl border border-slate-200 bg-white py-2 shadow-xl dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200">
+                    <div class="flex items-center justify-between border-b border-slate-100 px-4 py-2 dark:border-slate-700">
+                        <span class="font-sans text-xs uppercase tracking-wider text-slate-700 dark:text-slate-300">{{ __('Notifications') }}</span>
+                        @if(auth()->check() && auth()->user()->unreadNotifications->count() > 0)
                           <form action="{{ route('notifications.read-all') }}" method="POST">
                               @csrf
                               @method('PATCH')
-                              <button type="submit" class="text-xs text-primary hover:underline cursor-pointer">{{ __('Mark all as read') }}</button>
+                              <button type="submit" class="cursor-pointer text-xs text-primary hover:underline">{{ __('Mark all as read') }}</button>
                           </form>
                         @endif
                     </div>
 
                     <div class="max-h-64 overflow-y-auto divide-y divide-slate-100 text-left dark:divide-slate-700">
-                        @forelse(auth()->user()->notifications()->take(5)->get() as $notification)
-                            <div class="px-4 py-3 hover:bg-slate-50 transition-colors dark:hover:bg-slate-700/50 {{ $notification->read_at ? 'opacity-60' : '' }}">
-                                <p class="text-xs font-sans text-slate-800 dark:text-slate-100">{{ $notification->data['title'] ?? 'Notification' }}</p>
-                                <p class="text-xs text-slate-600 mt-0.5 dark:text-slate-400">{{ $notification->data['message'] ?? '' }}</p>
-                                <span class="text-[10px] text-slate-400 mt-1 block dark:text-slate-500">{{ $notification->created_at->diffForHumans() }}</span>
+                        @forelse(auth()->check() ? auth()->user()->notifications()->take(5)->get() : [] as $notification)
+                            <div class="px-4 py-3 transition-colors hover:bg-slate-50 dark:hover:bg-slate-700/50 {{ $notification->read_at ? 'opacity-60' : '' }}">
+                                <p class="font-sans text-xs text-slate-800 dark:text-slate-100">{{ $notification->data['title'] ?? 'Notification' }}</p>
+                                <p class="mt-0.5 text-xs text-slate-600 dark:text-slate-400">{{ $notification->data['message'] ?? '' }}</p>
+                                <span class="mt-1 block text-[10px] text-slate-400 dark:text-slate-500">{{ $notification->created_at->diffForHumans() }}</span>
                             </div>
                         @empty
                             <div class="px-4 py-6 text-center text-xs text-slate-500 dark:text-slate-400">
@@ -150,7 +153,7 @@
                 <svg x-show="!dark" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z" />
                 </svg>
-                <svg x-cloak x-show="dark" class="h-5 w-5 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg x-cloak x-show="dark" class="h-5 w-5 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
                     <circle cx="12" cy="12" r="4" />
                     <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
                 </svg>
@@ -178,13 +181,14 @@
             </label>
 
             <!-- User menu -->
+            @if(auth()->check())
             <div class="relative" x-data="{ open: false }">
                 <button
                     type="button"
                     @click="open = !open"
                     @keydown.escape.window="open = false"
                     :aria-expanded="open"
-                    class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-sm font-sans text-white shadow-sm transition hover:opacity-90 focus:outline-none focus:ring-4 focus:ring-primary/20">
+                    class="flex h-10 w-10 items-center justify-center rounded-full bg-primary font-sans text-sm text-white shadow-sm transition hover:opacity-90 focus:outline-none focus:ring-4 focus:ring-primary/20">
                     <span class="sr-only">{{ __('Open user menu') }}</span>
                     {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                 </button>
@@ -194,6 +198,7 @@
                     x-show="open"
                     x-transition
                     @click.outside="open = false"
+                    style="display: none;"
                     class="absolute right-0 z-50 mt-2 w-64 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-xl dark:border-slate-700 dark:bg-slate-800">
 
                     <!-- Account Header -->
@@ -202,13 +207,13 @@
                             {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                         </div>
                         <div class="min-w-0 flex-1">
-                            <p class="truncate text-sm font-sans text-slate-800 dark:text-slate-100">
+                            <p class="truncate font-sans text-sm text-slate-800 dark:text-slate-100">
                                 {{ auth()->user()->name }}
                             </p>
                             <p class="truncate text-xs text-slate-500 dark:text-slate-400">
                                 {{ auth()->user()->email }}
                             </p>
-                            <!-- បន្ថែមសិទ្ធិ Role Badge (Admin ឬ User) នៅត្រង់នេះ -->
+                            <!-- Role Badge -->
                             <div class="mt-1">
                                 @if(auth()->user()->role === 'admin')
                                     <span class="inline-flex items-center rounded-md bg-rose-50 px-2 py-0.5 text-[10px] font-medium text-rose-700 ring-1 ring-inset ring-rose-600/10 dark:bg-rose-950/30 dark:text-rose-400">
@@ -239,7 +244,7 @@
                         <button
                             type="button"
                             @click="open = false; $dispatch('open-modal', 'navigation-profile')"
-                            class="flex w-full items-center font-sans gap-3 rounded-lg px-3 py-2.5 text-left text-slate-700 transition hover:bg-primary/10 hover:text-primary dark:text-slate-200 dark:hover:bg-slate-700/50">
+                            class="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left font-sans text-slate-700 transition hover:bg-primary/10 hover:text-primary dark:text-slate-200 dark:hover:bg-slate-700/50">
                             <svg class="h-[18px] w-[18px] shrink-0" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
@@ -252,7 +257,7 @@
                         <button
                             type="button"
                             @click="open = false; $dispatch('open-modal', 'navigation-settings')"
-                            class="flex w-full items-center font-sans gap-3 rounded-lg px-3 py-2.5 text-left text-slate-700 transition hover:bg-primary/10 hover:text-primary dark:text-slate-200 dark:hover:bg-slate-700/50">
+                            class="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left font-sans text-slate-700 transition hover:bg-primary/10 hover:text-primary dark:text-slate-200 dark:hover:bg-slate-700/50">
                             <svg class="h-[18px] w-[18px] shrink-0" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
@@ -267,7 +272,7 @@
                         <button
                             type="button"
                             @click="open = false; $dispatch('open-modal', 'navigation-password')"
-                            class="flex w-full items-center font-sans gap-3 rounded-lg px-3 py-2.5 text-left text-slate-700 transition hover:bg-primary/10 hover:text-primary dark:text-slate-200 dark:hover:bg-slate-700/50">
+                            class="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left font-sans text-slate-700 transition hover:bg-primary/10 hover:text-primary dark:text-slate-200 dark:hover:bg-slate-700/50">
                             <svg class="h-[18px] w-[18px] shrink-0" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -296,6 +301,7 @@
                     </div>
                 </div>
             </div>
+            @endif
         </div>
     </div>
 </nav>
