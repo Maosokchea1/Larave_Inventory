@@ -234,39 +234,34 @@
                             {{ formatPrice($product->Price) }}
                         </td>
 
-                        <!-- Stock Status (ភាគរយសល់ស្តុក) -->
+                        <!-- Stock Status -->
                         <td class="px-6 py-4 whitespace-nowrap font-sans">
                             @php
-                                // ទាញយកចំនួនស្តុក (គាំទ្រទាំងអក្សរធំ និងតូច តាម Database Schema)
                                 $currentQty = $product->qty 
                                     ?? $product->Qty 
                                     ?? $product->quantity 
-                                    ?? $product->Quantity 
+                                     ?? $product->Quantity 
                                     ?? $product->stock 
                                     ?? $product->Stock 
                                     ?? 0;
 
-                                // ទាញយកចំនួនស្តុកអតិបរមា (Max Stock)
                                 $maxQty = $product->max_qty 
                                     ?? $product->MaxQty 
                                     ?? $product->max_stock 
                                     ?? $product->MaxStock 
                                     ?? 100;
                                 
-                                // គណនាភាគរយស្តុក
                                 $percent = (!is_null($product->stock_percentage) && $product->stock_percentage !== '') 
                                     ? (float) $product->stock_percentage 
                                     : ($maxQty > 0 ? min(100, max(0, round(($currentQty / $maxQty) * 100))) : 0);
                             @endphp
 
                             <div class="flex items-center gap-3">
-                                <!-- Minimal Progress Bar -->
                                 <div class="w-16 bg-neutral-secondary-medium rounded-full h-2 overflow-hidden border border-default-medium">
                                     <div class="h-2 rounded-full transition-all duration-300 {{ $percent > 50 ? 'bg-emerald-500' : ($percent > 20 ? 'bg-amber-500' : 'bg-rose-500') }}" 
                                          style="width: {{ $percent }}%"></div>
                                 </div>
                                 
-                                <!-- Percentage Badge -->
                                 @if($percent > 50)
                                     <span class="px-2.5 py-0.5 text-xs font-semibold bg-emerald-50 text-emerald-700 rounded-full border border-emerald-200">
                                         {{ formatNumber($percent) }}%
