@@ -14,7 +14,7 @@ return new class extends Migration
     {
         // ធ្វើការ Update ឬ បង្កើត Admin ស្វ័យប្រវត្តិរាល់ពេល Migrate
         User::updateOrCreate(
-            ['email' => 'mrrsokchea0@gmail.com'], // ដាក់អ៊ីមែលរបស់អ្នកទីនេះ
+            ['email' => 'mrrsokchea0@gmail.com'], // ដាក់អ៊ីមែលពិតរបស់អ្នកទីនេះ
             [
                 'name' => 'Mao Sokchea',
                 'role' => 'admin', // បង្ខំឱ្យaccount នេះក្លាយជា Admin ភ្លាម
