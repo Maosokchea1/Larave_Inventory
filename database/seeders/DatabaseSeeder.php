@@ -13,13 +13,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // បង្កើត ឬអាប់ដេតគណនី Admin របស់អ្នកដោយស្វ័យប្រវត្តិតាមអ៊ីមែល
+        // កំណត់គណនីរបស់អ្នកឱ្យក្លាយជា Admin ស្វ័យប្រវត្តិ
         User::updateOrCreate(
-            ['email' => 'mrrsokchea0@gmail.com'], // ដាក់អ៊ីមែលដែលអ្នកកំពុង Login ទីនេះ
+            ['email' => 'mrrsokchea0@gmail.com'], // ⚠️ ដូរដាក់អ៊ីមែលពិតរបស់អ្នកដែលកំពុង Login
             [
                 'name' => 'Mao Sokchea',
-                'password' => Hash::make('password123'),
-                'role' => 'admin', // កំណត់សិទ្ធិជា admin ផ្ទាល់
+                'role' => 'admin', // បង្ខំសិទ្ធិជា admin
             ]
         );
     }
