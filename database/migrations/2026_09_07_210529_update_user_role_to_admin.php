@@ -2,14 +2,14 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\User; // កុំភ្លេចហៅ Model User មកប្រើ
+use App\Models\User;
 
 return new class extends Migration
 {
     public function up(): void
     {
-        // ប្ដូរ Email ខាងក្រោមឱ្យចំជាមួយ Email ដែលអ្នក Login លើ Render
-        User::where('email', 'mrrsokchea@gmail.com')->update([
+        // ដាក់ Email ដែលកំពុង Login លើ Render ផ្ទាល់
+        User::where('email', 'mrrsokchea0@gmail.com')->update([
             'role' => 'admin'
         ]);
     }
